@@ -194,14 +194,14 @@ streamlit run app.py
 
 ## 📸 Application Preview
 
-You can add screenshots of the Streamlit application here.
+### 🏠 Home Screen
+![Home Screen](images/Home.png)
 
-Example:
+### 🎉 Promoted Result
+![Promoted Result](images/promoted.png)
 
-```
-images/home.png
-images/result.png
-```
+### ❌ Not Promoted Result
+![Not Promoted Result](images/not%20promoted.png)
 
 ---
 
