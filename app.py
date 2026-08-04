@@ -1,7 +1,6 @@
 import streamlit as st
 import joblib
 import pandas as pd
-
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
