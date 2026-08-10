@@ -3,10 +3,22 @@ import joblib
 import pandas as pd
 import os
 
+# Robust resolution of MODEL_DIR across deployment environments
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR = os.path.join(BASE_DIR, 'model')
-if not os.path.exists(MODEL_DIR):
-    MODEL_DIR = os.path.join(BASE_DIR, '..', 'model')
+candidate_model_dirs = [
+    os.path.join(BASE_DIR, 'model'),
+    os.path.abspath(os.path.join(BASE_DIR, '..', 'model')),
+    os.path.abspath(os.path.join(os.getcwd(), 'model'))
+]
+
+MODEL_DIR = None
+for candidate in candidate_model_dirs:
+    if os.path.isdir(candidate) and os.path.exists(os.path.join(candidate, 'promotion_model.pkl')):
+        MODEL_DIR = candidate
+        break
+
+if not MODEL_DIR:
+    raise FileNotFoundError(f"Could not locate 'model' directory. Checked paths: {candidate_model_dirs}")
 
 # ---------------- LOAD FILES ----------------
 model = joblib.load(os.path.join(MODEL_DIR, 'promotion_model.pkl'))

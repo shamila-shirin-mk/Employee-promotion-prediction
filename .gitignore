@@ -2,4 +2,3 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .DS_Store
-pj1.py
