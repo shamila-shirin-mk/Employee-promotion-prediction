@@ -1,19 +1,21 @@
 import streamlit as st
 import joblib
 import pandas as pd
-
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.join(BASE_DIR, 'model')
+if not os.path.exists(MODEL_DIR):
+    MODEL_DIR = os.path.join(BASE_DIR, '..', 'model')
 
 # ---------------- LOAD FILES ----------------
-model = joblib.load(os.path.join(BASE_DIR, 'employee_model.pkl'))
-l1 = joblib.load(os.path.join(BASE_DIR, 'l1.pkl'))
-l2 = joblib.load(os.path.join(BASE_DIR, 'l2.pkl'))
-l3 = joblib.load(os.path.join(BASE_DIR, 'l3.pkl'))
-l4 = joblib.load(os.path.join(BASE_DIR, 'l4.pkl'))
-oe = joblib.load(os.path.join(BASE_DIR, 'oe.pkl'))
-scaler = joblib.load(os.path.join(BASE_DIR, 'scaler.pkl'))
+model = joblib.load(os.path.join(MODEL_DIR, 'promotion_model.pkl'))
+department_encoder = joblib.load(os.path.join(MODEL_DIR, 'department_encoder.pkl'))
+region_encoder = joblib.load(os.path.join(MODEL_DIR, 'region_encoder.pkl'))
+gender_encoder = joblib.load(os.path.join(MODEL_DIR, 'gender_encoder.pkl'))
+recruitment_channel_encoder = joblib.load(os.path.join(MODEL_DIR, 'recruitment_channel_encoder.pkl'))
+education_encoder = joblib.load(os.path.join(MODEL_DIR, 'education_encoder.pkl'))
+scaler = joblib.load(os.path.join(MODEL_DIR, 'standard_scaler.pkl'))
 
 # ---------------- UI ----------------
 st.title("Employee Promotion Prediction")
@@ -73,11 +75,11 @@ if st.button("Predict"):
     })
 
     # Encoding
-    input_data['department'] = l1.transform(input_data['department'])
-    input_data['region'] = l2.transform(input_data['region'])
-    input_data['education'] = oe.transform(input_data[['education']])
-    input_data['gender'] = l3.transform(input_data['gender'])
-    input_data['recruitment_channel'] = l4.transform(input_data['recruitment_channel'])
+    input_data['department'] = department_encoder.transform(input_data['department'])
+    input_data['region'] = region_encoder.transform(input_data['region'])
+    input_data['education'] = education_encoder.transform(input_data[['education']])
+    input_data['gender'] = gender_encoder.transform(input_data['gender'])
+    input_data['recruitment_channel'] = recruitment_channel_encoder.transform(input_data['recruitment_channel'])
 
     # Scaling
     input_scaled = scaler.transform(input_data)
