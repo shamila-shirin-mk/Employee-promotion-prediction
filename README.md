@@ -169,7 +169,7 @@ Employee-Promotion-Prediction/
 Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/Employee-Promotion-Prediction.git
+git clone https://github.com/shamila-shirin-mk/Employee-Promotion-Prediction.git
 ```
 
 Move into the project directory
