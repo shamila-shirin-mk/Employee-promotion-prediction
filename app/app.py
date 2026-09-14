@@ -89,7 +89,7 @@ if st.button("Predict"):
     # Encoding
     input_data['department'] = department_encoder.transform(input_data['department'])
     input_data['region'] = region_encoder.transform(input_data['region'])
-    input_data['education'] = education_encoder.transform(input_data[['education']])
+    input_data['education'] = education_encoder.transform(input_data[['education']]).ravel()
     input_data['gender'] = gender_encoder.transform(input_data['gender'])
     input_data['recruitment_channel'] = recruitment_channel_encoder.transform(input_data['recruitment_channel'])
 

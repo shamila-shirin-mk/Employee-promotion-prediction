@@ -67,14 +67,14 @@ The following analyses were performed:
 
 ## ⚙️ Data Preprocessing
 
-The preprocessing pipeline includes:
+To ensure zero data leakage between training and testing data:
 
-- Handling missing values
-- Label Encoding
-- Ordinal Encoding
-- Feature Scaling using StandardScaler
-- Train-Test Split
-- SMOTE for balancing the target classes
+1. **Train-Test Split**: The dataset is split into training (80%) and testing (20%) sets prior to any statistical transformations.
+2. **Missing Value Imputation**: Imputed mode for `education` and median for `previous_year_rating` using training set statistics only.
+3. **Outlier Treatment**: IQR capping applied on numerical features (`age`, `length_of_service`).
+4. **Categorical Encoding**: `LabelEncoder` and `OrdinalEncoder` fitted strictly on training features.
+5. **Class Imbalance Handling**: **SMOTE** oversampling applied exclusively to the training set (`x_train`, `y_train`).
+6. **Feature Scaling**: `StandardScaler` fitted on training set and transformed across test data.
 
 ---
 
@@ -92,7 +92,7 @@ The following models were trained and evaluated:
 - Gradient Boosting
 - XGBoost
 
-Each model was evaluated before and after hyperparameter tuning.
+Each model was hyperparameter-tuned using `GridSearchCV` optimized with `F1-Score` to effectively manage target class imbalance.
 
 ---
 
@@ -107,7 +107,7 @@ The models were evaluated using:
 - Confusion Matrix
 - Classification Report
 
-The best-performing model was selected for deployment.
+The best-performing model (**XGBoost Classifier**) was saved for production deployment.
 
 ---
 
@@ -119,7 +119,7 @@ The application allows users to:
 
 - Enter employee details
 - Predict promotion status instantly
-- View prediction results through a simple interface
+- View prediction results through a clean interactive interface
 
 ---
 
@@ -143,20 +143,24 @@ The application allows users to:
 ```
 Employee-Promotion-Prediction/
 │
-├── dataset/
-│   └── employee_promotion.csv
+├── data/
+│   └── employee.csv
 │
-├── models/
-│   ├── employee_model.pkl
-│   ├── scaler.pkl
-│   ├── oe.pkl
-│   ├── l1.pkl
-│   ├── l2.pkl
-│   ├── l3.pkl
-│   └── l4.pkl
+├── model/
+│   ├── promotion_model.pkl
+│   ├── department_encoder.pkl
+│   ├── region_encoder.pkl
+│   ├── gender_encoder.pkl
+│   ├── recruitment_channel_encoder.pkl
+│   ├── education_encoder.pkl
+│   └── standard_scaler.pkl
 │
+├── app/
+│   └── app.py
+├── notebook/
+│   └── employee_promotion.ipynb
 ├── app.py
-├── pj1.ipynb
+├── pj1.py
 ├── requirements.txt
 ├── README.md
 └── images/
@@ -187,7 +191,7 @@ pip install -r requirements.txt
 Run the Streamlit application
 
 ```bash
-streamlit run app.py
+streamlit run app/app.py
 ```
 
 ---
