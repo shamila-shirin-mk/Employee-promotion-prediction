@@ -113,7 +113,9 @@ The best-performing model (**XGBoost Classifier**) was saved for production depl
 
 ## 🖥️ Streamlit Application
 
-The trained model is deployed using **Streamlit**.
+The trained model is live and deployed on **Streamlit Cloud**:
+
+👉 **[Live Application Link](https://shamilashirin32-droid-employee-promotion-prediction-pj1-e4iisz.streamlit.app)**
 
 The application allows users to:
 
@@ -211,7 +213,6 @@ streamlit run app/app.py
 
 ## 🎯 Future Improvements
 
-- Deploy on Streamlit Cloud
 - Add feature importance visualization
 - Probability prediction
 - Batch prediction using CSV upload
